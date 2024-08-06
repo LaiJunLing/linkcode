@@ -6,7 +6,7 @@
 	"proxyIPs" : "\[ts.hpc.tw\]",
 	"proxyIP" : "proxyIPs[Math.floor(Math.random() * proxyIPs.length)]",
 	"whichIP" : "3",
-	"CDNURL" : "www.visa.com.sg";
+	"CDNURL" : "www.visa.com.sg",
 	"whichUrl : "1",
 	"IP1" : "www.visa.com",
 	"IP2" : "cis.visa.com",
