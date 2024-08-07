@@ -2,7 +2,7 @@
 	"userID" : "226279dd-28b2-4b61-96be-a2a0b1afd522",
 	"forwardUrl" : "zhaoqing.city",
 	"dohURL" : "https://1.1.1.1/dns-query",
-	//"dohURL" : "https://sky.rethinkdns.com/1:-Pf_____9_8A_AMAIgE8kMABVDDmKOHTAKg=",
+	// "dohURL" : "https://sky.rethinkdns.com/1:-Pf_____9_8A_AMAIgE8kMABVDDmKOHTAKg=",
 	//"dohURL" : "https://cloudflare-dns.com/dns-query",
 	//"dohURL" : "https://dns.google/dns-query",
 	//"dohURL" : "https://8.8.8.8/dns-query",
