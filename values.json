@@ -2,7 +2,7 @@
 	"userID" : "226279dd-28b2-4b61-96be-a2a0b1afd522",
 	"forwardUrl" : "zhaoqing.city",
 	"dohURL" : "https://1.1.1.1/dns-query",
-	// "dohURL" : "https://sky.rethinkdns.com/1:-Pf_____9_8A_AMAIgE8kMABVDDmKOHTAKg=",
+	//"dohURL" : "https://sky.rethinkdns.com/1:-Pf_____9_8A_AMAIgE8kMABVDDmKOHTAKg=",
 	//"dohURL" : "https://cloudflare-dns.com/dns-query",
 	//"dohURL" : "https://dns.google/dns-query",
 	//"dohURL" : "https://8.8.8.8/dns-query",
@@ -16,7 +16,6 @@
 	//"dohURL" : "https://doh.opendns.com/dns-query",
 	//"dohURL" : "https://dns.quad9.net/dns-query",
 	//"dohURL" : "https://dns10.quad9.net/dns-query",
-
 	"whichDNS" : "",
 	"proxyIPs" : "[ts.hpc.tw]",
 	//"proxyIPs" : "[proxy.xxxxxxxx.tk]",
@@ -40,8 +39,6 @@
 	//"proxyIPs" : "[8.222.146.222]",
 	//"proxyIPs" : "[47.245.86.230]",
 	//"proxyIPs" : "[8.222.165.117]",
-
-
 	"proxyIP" : "proxyIPs[Math.floor(Math.random() * proxyIPs.length)]",
 	"whichIP" : "",
 	"CDNURL" : "www.visa.com.sg",
