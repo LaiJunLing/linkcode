@@ -1,0 +1,1 @@
+javascript-obfuscator input.js --output output.js --compact true --string-array false --unicode-escape-sequence true --string-array-index-shift true
