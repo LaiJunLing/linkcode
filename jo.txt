@@ -1,1 +1,33 @@
-javascript-obfuscator input.js --output output.js --compact true --string-array false --unicode-escape-sequence true --string-array-index-shift true
+ren ali_worker.js 1.js
+ren hk_worker.js 2.js
+ren jp_worker.js 3.js
+ren KV_worker.js 4.js
+ren normal_worker.js 5.js
+ren private_worker.js 6.js
+ren sg_worker.js 7.js
+ren station_worker.js 8.js
+ren telecom_worker.js 9.js
+ren tw_worker.js 10.js
+ren us_worker.js 11.js
+javascript-obfuscator 1.js --output ali_worker.js --compact true --string-array false --unicode-escape-sequence true --string-array-index-shift true
+javascript-obfuscator 2.js --output hk_worker.js --compact true --string-array false --unicode-escape-sequence true --string-array-index-shift true
+javascript-obfuscator 3.js --output jp_worker.js --compact true --string-array false --unicode-escape-sequence true --string-array-index-shift true
+javascript-obfuscator 4.js --output KV_worker.js --compact true --string-array false --unicode-escape-sequence true --string-array-index-shift true
+javascript-obfuscator 5.js --output normal_worker.js --compact true --string-array false --unicode-escape-sequence true --string-array-index-shift true
+javascript-obfuscator 6.js --output private_worker.js --compact true --string-array false --unicode-escape-sequence true --string-array-index-shift true
+javascript-obfuscator 7.js --output sg_worker.js --compact true --string-array false --unicode-escape-sequence true --string-array-index-shift true
+javascript-obfuscator 8.js --output station_worker.js --compact true --string-array false --unicode-escape-sequence true --string-array-index-shift true
+javascript-obfuscator 9.js --output telecom_worker.js --compact true --string-array false --unicode-escape-sequence true --string-array-index-shift true
+javascript-obfuscator 10.js --output tw_worker.js --compact true --string-array false --unicode-escape-sequence true --string-array-index-shift true
+javascript-obfuscator 11.js --output us_worker.js --compact true --string-array false --unicode-escape-sequence true --string-array-index-shift true
+del 1.js
+del 2.js
+del 3.js
+del 4.js
+del 5.js
+del 6.js
+del 7.js
+del 8.js
+del 9.js
+del 10.js
+del 11.js
