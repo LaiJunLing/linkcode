@@ -1,7 +1,7 @@
 ss://YWVzLTI1Ni1nY206TmljaG9sYXNMYWk%3D@64.110.100.50:443#%E7%94%B2%E9%AA%A8%E6%96%87%E6%99%AE%E9%80%9A
 hysteria2://NicholasLai@64.110.100.50:8443?sni=www.zhaoqing.city&insecure=1#%E7%94%B2%E9%AA%A8%E6%96%87%E9%AB%98%E9%80%9F
-vless://226279dd-28b2-4b61-96be-a2a0b1afd522@213.189.52.181:34567?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.speedtest.net&fp=chrome&pbk=Jcn0qzpK4vP7q43U4yHvs3vneMjrSrIRW4i1RrT4_As&type=tcp&headerType=none#Serv00%E6%99%AE%E9%80%9A
-hysteria2://226279dd-28b2-4b61-96be-a2a0b1afd522@213.189.52.181:56789?sni=www.bing.com&insecure=1#Serv00%E9%AB%98%E9%80%9F
+vless://bc97f674-c578-4940-9234-0a1da46041b9@213.189.52.181:34567?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.cerebrium.ai&fp=chrome&pbk=HLKTMxAu_hCtXpBRkj11oIvtivYVTuSYGPNgppimmh8&type=tcp&headerType=none#Serv00%E6%99%AE%E9%80%9A
+hysteria2://bc97f674-c578-4940-9234-0a1da46041b9@213.189.52.181:45678/?sni=www.bing.com&alpn=h3&insecure=1#Serv00%E9%AB%98%E9%80%9F
 vless://226279dd-28b2-4b61-96be-a2a0b1afd522@myanmar.visa.com:8443?path=%2F%3Fed%3D2560&security=tls&encryption=none&host=us.sihui.city&fp=random&type=ws&sni=us.sihui.city#%E4%BC%98%E9%80%89%E7%BC%85%E7%94%B8%E8%8A%82%E7%82%B9
 vless://226279dd-28b2-4b61-96be-a2a0b1afd522@www.visasoutheasteurope.com:8443?path=%2F%3Fed%3D2560&security=tls&encryption=none&host=us.sihui.city&fp=random&type=ws&sni=us.sihui.city#%E8%82%87%E5%BA%86%E4%BC%98%E9%80%89%E8%8A%82%E7%82%B9
 vless://226279dd-28b2-4b61-96be-a2a0b1afd522@162.159.129.207:443?path=%2F%3Fed%3D2048&security=tls&alpn=null&encryption=none&host=us.sihui.city&fp=randomized&type=ws&sni=us.sihui.city#%E8%82%87%E5%BA%86%E7%A7%BB%E5%8A%A8%E8%8A%82%E7%82%B91
