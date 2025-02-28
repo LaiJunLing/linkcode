@@ -3,8 +3,8 @@ name: Update vps.txt Automatically
 on:
   push:
     paths:
-      - "serv00-publivps.txt"
-      - "oracle-publivps.txt"
+      - "serv00-public.txt"
+      - "oracle-public.txt"
 
 jobs:
   update-vps-file:
@@ -13,13 +13,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Merge serv00-publivps.txt and oracle-publivps.txt into vps.txt
-        run: cat serv00-publivps.txt oracle-publivps.txt > vps.txt
+      - name: Merge serv00-public.txt and oracle-public.txt into vps.txt
+        run: cat serv00-public.txt oracle-public.txt > vps.txt
 
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add vps.txt
-          git commit -m "Auto-update vps.txt from serv00-publivps.txt and oracle-publivps.txt" || echo "No changes to commit"
+          git commit -m "Auto-update vps.txt from serv00-public.txt and oracle-public.txt" || echo "No changes to commit"
           git push
