@@ -1,0 +1,2 @@
+vless://226279dd-28b2-4b61-96be-a2a0b1afd522@myanmar.visa.com:8880?path=%2F%3Fed%3D2560&security=none&encryption=none&host=t1.agedmonk.workers.dev&type=ws#%E6%99%AE%E9%80%9A%E4%BB%A3%E7%90%86%E8%BF%9E%E6%8E%A5
+vless://226279dd-28b2-4b61-96be-a2a0b1afd522@myanmar.visa.com:8443?path=%2F%3Fed%3D2560&security=tls&encryption=none&host=t1.freechina.asia&fp=random&type=ws&sni=t1.freechina.asia#%E5%AE%89%E5%85%A8%E4%BB%A3%E7%90%86%E8%BF%9E%E6%8E%A5
