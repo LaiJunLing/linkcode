@@ -1,0 +1,2 @@
+ss://YWVzLTI1Ni1nY206TmljaG9sYXNMYWk%3D@64.110.100.50:443#%E7%94%B2%E9%AA%A8%E6%96%87%E6%99%AE%E9%80%9A
+hysteria2://NicholasLai@64.110.100.50:8443?sni=www.niclai.vip&insecure=1#%E7%94%B2%E9%AA%A8%E6%96%87%E9%AB%98%E9%80%9F
