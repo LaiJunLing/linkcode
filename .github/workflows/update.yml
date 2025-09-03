@@ -19,11 +19,22 @@ jobs:
 
       - name: Fetch content
         run: |
-          curl -s "https://ctrl.niclai.vip/sub/normal/226279dd-28b2-4b61-96be-a2a0b1afd522" -o bpb-new.txt
+          curl -s "https://ctrl.niclai.vip/sub/normal/226279dd-28b2-4b61-96be-a2a0b1afd522" -o bpb-niclai-new.txt
+          curl -s "https://ctrl.zhaoqing.city/sub/normal/226279dd-28b2-4b61-96be-a2a0b1afd522" -o bpb-zhaoqing-new.txt
+          curl -s "https://ctrl.sihui.city/sub/normal/226279dd-28b2-4b61-96be-a2a0b1afd522" -o bpb-sihui-new.txt
 
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add bpb-new.txt
-          git diff --cached --quiet || (git commit -m "Update bpb-new.txt" && git push)
+          git add bpb-niclai-new.txt
+          git diff --cached --quiet || (git commit -m "Update bpb-niclai-new.txt" && git push)
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bpb-zhaoqing-new.txt
+          git diff --cached --quiet || (git commit -m "Update bpb-zhaoqing-new.txt" && git push)
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bpb-sihui-new.txt
+          git diff --cached --quiet || (git commit -m "Update bpb-sihui-new.txt" && git push)
+          
