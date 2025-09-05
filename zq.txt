@@ -1,0 +1,77 @@
+========================================
+    Python Xray Argo 一键部署脚本    
+========================================
+基于项目: https://github.com/eooce/python-xray-argo
+脚本仓库: https://github.com/byJoey/free-vps-py
+TG交流群: https://t.me/+ft-zI76oovgwNmRh
+本脚本基于 eooce 大佬的 Python Xray Argo 项目开发
+提供极速和完整两种配置模式，简化部署流程
+支持自动UUID生成、后台运行、节点信息输出
+请选择配置模式:
+1) 极速模式 - 只修改UUID并启动
+2) 完整模式 - 详细配置所有选项
+请输入选择 (1/2): 1
+检查并安装依赖...
+依赖安装完成！
+已备份原始文件为 app.py.backup
+=== 极速模式 ===
+当前UUID: UUID
+请输入新的 UUID (留空自动生成): 226279dd-28b2-4b61-96be-a2a0b1afd522
+UUID 已设置为: 226279dd-28b2-4b61-96be-a2a0b1afd522
+优选IP已自动设置为: joeyblog.net
+极速配置完成！正在启动服务...
+=== 当前配置摘要 ===
+UUID: UUID
+节点名称: Vls
+服务端口: 
+3000
+优选IP: joeyblog.net
+优选端口: 443
+订阅路径: sub
+========================
+正在启动服务...
+当前工作目录：/home/container/python-xray-argo
+服务已在后台启动，PID: 50
+日志文件: /home/container/python-xray-argo/app.log
+等待服务启动...
+服务运行正常
+等待节点信息生成...
+========================================
+           部署完成！                   
+========================================
+=== 服务信息 ===
+服务状态: 运行中
+进程PID: 50
+服务端口: 
+3000
+UUID: UUID
+订阅路径: /sub
+=== 访问地址 ===
+订阅地址: http://23.27.249.57:
+3000/sub
+管理面板: http://23.27.249.57:
+3000
+本地订阅: http://localhost:
+3000/sub
+本地面板: http://localhost:
+3000
+=== 节点信息 ===
+原始节点配置:
+vless://226279dd-28b2-4b61-96be-a2a0b1afd522@joeyblog.net:443?encryption=none&security=tls&sni=sullivan-connectors-adjustable-corrected.trycloudflare.com&fp=chrome&type=ws&host=sullivan-connectors-adjustable-corrected.trycloudflare.com&path=%2Fvless-argo%3Fed%3D2560#Vls-US-Nodestop_LLC
+  
+vmess://eyJ2IjogIjIiLCAicHMiOiAiVmxzLVVTLU5vZGVzdG9wX0xMQyIsICJhZGQiOiAiam9leWJsb2cubmV0IiwgInBvcnQiOiA0NDMsICJpZCI6ICIyMjYyNzlkZC0yOGIyLTRiNjEtOTZiZS1hMmEwYjFhZmQ1MjIiLCAiYWlkIjogIjAiLCAic2N5IjogIm5vbmUiLCAibmV0IjogIndzIiwgInR5cGUiOiAibm9uZSIsICJob3N0IjogInN1bGxpdmFuLWNvbm5lY3RvcnMtYWRqdXN0YWJsZS1jb3JyZWN0ZWQudHJ5Y2xvdWRmbGFyZS5jb20iLCAicGF0aCI6ICIvdm1lc3MtYXJnbz9lZD0yNTYwIiwgInRscyI6ICJ0bHMiLCAic25pIjogInN1bGxpdmFuLWNvbm5lY3RvcnMtYWRqdXN0YWJsZS1jb3JyZWN0ZWQudHJ5Y2xvdWRmbGFyZS5jb20iLCAiYWxwbiI6ICIiLCAiZnAiOiAiY2hyb21lIn0=
+trojan://226279dd-28b2-4b61-96be-a2a0b1afd522@joeyblog.net:443?security=tls&sni=sullivan-connectors-adjustable-corrected.trycloudflare.com&fp=chrome&type=ws&host=sullivan-connectors-adjustable-corrected.trycloudflare.com&path=%2Ftrojan-argo%3Fed%3D2560#Vls-US-Nodestop_LLC
+    
+订阅链接 (Base64编码):
+CnZsZXNzOi8vMjI2Mjc5ZGQtMjhiMi00YjYxLTk2YmUtYTJhMGIxYWZkNTIyQGpvZXlibG9nLm5ldDo0NDM/ZW5jcnlwdGlvbj1ub25lJnNlY3VyaXR5PXRscyZzbmk9c3VsbGl2YW4tY29ubmVjdG9ycy1hZGp1c3RhYmxlLWNvcnJlY3RlZC50cnljbG91ZGZsYXJlLmNvbSZmcD1jaHJvbWUmdHlwZT13cyZob3N0PXN1bGxpdmFuLWNvbm5lY3RvcnMtYWRqdXN0YWJsZS1jb3JyZWN0ZWQudHJ5Y2xvdWRmbGFyZS5jb20mcGF0aD0lMkZ2bGVzcy1hcmdvJTNGZWQlM0QyNTYwI1Zscy1VUy1Ob2Rlc3RvcF9MTEMKICAKdm1lc3M6Ly9leUoySWpvZ0lqSWlMQ0FpY0hNaU9pQWlWbXh6TFZWVExVNXZaR1Z6ZEc5d1gweE1ReUlzSUNKaFpHUWlPaUFpYW05bGVXSnNiMmN1Ym1WMElpd2dJbkJ2Y25RaU9pQTBORE1zSUNKcFpDSTZJQ0l5TWpZeU56bGtaQzB5T0dJeUxUUmlOakV0T1RaaVpTMWhNbUV3WWpGaFptUTFNaklpTENBaVlXbGtJam9nSWpBaUxDQWljMk41SWpvZ0ltNXZibVVpTENBaWJtVjBJam9nSW5keklpd2dJblI1Y0dVaU9pQWlibTl1WlNJc0lDSm9iM04wSWpvZ0luTjFiR3hwZG1GdUxXTnZibTVsWTNSdmNuTXRZV1JxZFhOMFlXSnNaUzFqYjNKeVpXTjBaV1F1ZEhKNVkyeHZkV1JtYkdGeVpTNWpiMjBpTENBaWNHRjBhQ0k2SUNJdmRtMWxjM010WVhKbmJ6OWxaRDB5TlRZd0lpd2dJblJzY3lJNklDSjBiSE1pTENBaWMyNXBJam9nSW5OMWJHeHBkbUZ1TFdOdmJtNWxZM1J2Y25NdFlXUnFkWE4wWVdKc1pTMWpiM0p5WldOMFpXUXVkSEo1WTJ4dmRXUm1iR0Z5WlM1amIyMGlMQ0FpWVd4d2JpSTZJQ0lpTENBaVpuQWlPaUFpWTJoeWIyMWxJbjA9Cgp0cm9qYW46Ly8yMjYyNzlkZC0yOGIyLTRiNjEtOTZiZS1hMmEwYjFhZmQ1MjJAam9leWJsb2cubmV0OjQ0Mz9zZWN1cml0eT10bHMmc25pPXN1bGxpdmFuLWNvbm5lY3RvcnMtYWRqdXN0YWJsZS1jb3JyZWN0ZWQudHJ5Y2xvdWRmbGFyZS5jb20mZnA9Y2hyb21lJnR5cGU9d3MmaG9zdD1zdWxsaXZhbi1jb25uZWN0b3JzLWFkanVzdGFibGUtY29ycmVjdGVkLnRyeWNsb3VkZmxhcmUuY29tJnBhdGg9JTJGdHJvamFuLWFyZ28lM0ZlZCUzRDI1NjAjVmxzLVVTLU5vZGVzdG9wX0xMQwogICAg
+=== 管理命令 ===
+查看日志: tail -f /home/container/python-xray-argo/app.log
+停止服务: kill 50
+重启服务: kill 50 && nohup python3 app.py > app.log 2>&1 &
+查看进程: ps aux | grep python3
+=== 重要提示 ===
+服务正在后台运行，请等待Argo隧道建立完成
+如果使用临时隧道，域名会在几分钟后出现在日志中
+建议10-15分钟后再次查看订阅地址获取最新节点信息
+可以通过日志查看详细的启动过程和隧道信息
+部署完成！感谢使用！
