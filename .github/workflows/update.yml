@@ -1,4 +1,4 @@
-name: Update bpb-new.txt
+name: Update bpb.txt
 
 on:
   schedule:
