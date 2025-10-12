@@ -1,4 +1,4 @@
-avless://226279dd-28b2-4b61-96be-a2a0b1afd522@cis.visa.com:8443?path=%2F%3Fed%3D2560&security=tls&encryption=none&host=fine.niclai.vip&fp=random&type=ws&sni=fine.niclai.vip#%E4%BC%98%E9%80%89%E8%8A%82%E7%82%B9
+aaavless://226279dd-28b2-4b61-96be-a2a0b1afd522@cis.visa.com:8443?path=%2F%3Fed%3D2560&security=tls&encryption=none&host=fine.niclai.vip&fp=random&type=ws&sni=fine.niclai.vip#%E4%BC%98%E9%80%89%E8%8A%82%E7%82%B9
 vless://226279dd-28b2-4b61-96be-a2a0b1afd522@myanmar.visa.com:8443?path=%2F%3Fed%3D2560&security=tls&encryption=none&host=station.niclai.vip&fp=random&type=ws&sni=station.niclai.vip#%E7%A7%BB%E5%8A%A8%E8%8A%82%E7%82%B91
 vless://226279dd-28b2-4b61-96be-a2a0b1afd522@www.visasoutheasteurope.com:8443?path=%2F%3Fed%3D2560&security=tls&encryption=none&host=station.niclai.vip&fp=random&type=ws&sni=station.niclai.vip#%E7%A7%BB%E5%8A%A8%E8%8A%82%E7%82%B92
 vless://226279dd-28b2-4b61-96be-a2a0b1afd522@japan.com:8443?path=%2F%3Fed%3D2560&security=tls&encryption=none&host=station.niclai.vip&fp=random&type=ws&sni=station.niclai.vip#%E7%A7%BB%E5%8A%A8%E8%8A%82%E7%82%B93
@@ -12,5 +12,6 @@ vless://226279dd-28b2-4b61-96be-a2a0b1afd522@www.visa.com.tw:8443?path=%2F%3Fed%
 vless://226279dd-28b2-4b61-96be-a2a0b1afd522@cis.visa.com:8443?path=%2F%3Fed%3D2560&security=tls&encryption=none&host=jp.niclai.vip&fp=random&type=ws&sni=jp.niclai.vip#%E6%97%A5%E6%9C%AC%E8%8A%82%E7%82%B9
 vless://226279dd-28b2-4b61-96be-a2a0b1afd522@cis.visa.com:8443?path=%2F%3Fed%3D2560&security=tls&encryption=none&host=sg.niclai.vip&fp=random&type=ws&sni=sg.niclai.vip#%E7%8B%AE%E5%9F%8E%E8%8A%82%E7%82%B9
 vless://226279dd-28b2-4b61-96be-a2a0b1afd522@cis.visa.com:8443?path=%2F%3Fed%3D2560&security=tls&encryption=none&host=us.niclai.vip&fp=random&type=ws&sni=us.niclai.vip#%E7%BE%8E%E5%9B%BD%E8%8A%82%E7%82%B9
+
 
 
