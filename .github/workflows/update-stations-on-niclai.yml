@@ -1,0 +1,42 @@
+name: Update stations in youtubedownloader when niclai-station.txt changes
+
+on:
+  push:
+    paths:
+      - 'niclai-station.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  update-stations:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout linkcode repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare combined stations content
+        run: |
+          cat lunes.txt > combined_stations.txt
+          echo "" >> combined_stations.txt
+          cat niclai-station.txt >> combined_stations.txt
+
+      - name: Clone target repo (youtubedownloader)
+        env:
+          PAT: ${{ secrets.LAIJUNLING_PAT }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "actions@github.com"
+          rm -rf youtubedownloader || true
+          git clone https://x-access-token:${PAT}@github.com/laijunling/youtubedownloader.git
+          cd youtubedownloader
+          cp ../combined_stations.txt stations.txt
+          git add stations.txt
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: update stations.txt from linkcode (niclai-station.txt changed)"
+          git push origin HEAD
