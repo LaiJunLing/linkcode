@@ -51,13 +51,13 @@ jobs:
           #!/bin/bash
           set -e
 
-          if [ ! -f niclai-station.txt ]; then
-            echo "niclai-station.txt not found" >&2
+          if [ ! -f stations.txt ]; then
+            echo "stations.txt not found" >&2
             exit 1
           fi
 
           cat lunes.txt > combined_stations.txt
-          cat niclai-station.txt >> combined_stations.txt
+          cat stations.txt >> combined_stations.txt
 
       - name: Configure Git identity for youtubedownloader commits
         run: |
