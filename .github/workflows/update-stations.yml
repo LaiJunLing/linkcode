@@ -1,9 +1,9 @@
-name: Update stations in youtubedownloader when niclai-station.txt changes
+name: Update stations in youtubedownloader when stations.txt changes
 
 on:
   push:
     paths:
-      - 'niclai-station.txt'
+      - 'stations.txt'
 
 permissions:
   contents: write
@@ -20,7 +20,7 @@ jobs:
       - name: Prepare combined stations content
         run: |
           cat lunes.txt > combined_stations.txt
-          cat niclai-station.txt >> combined_stations.txt
+          cat stations.txt >> combined_stations.txt
 
       - name: Clone target repo (youtubedownloader)
         env:
