@@ -64,13 +64,13 @@ jobs:
             echo "ERROR: REPO_PAT not set."
             exit 1
           fi
-          git clone https://x-access-token:${REPO_PAT}@github.com/laijunling/youtubedownloader.git ytd_repo
-          cd ytd_repo
+          git clone https://x-access-token:${REPO_PAT}@github.com/laijunling/youtubedownloader.git youtubedownlaoder_repo
+          cd youtubedownlaoder_repo
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           cd ..
 
-      - name: If lunes.txt changed → update ytd/stations.txt
+      - name: If lunes.txt changed → update youtubedownlaoder/stations.txt
         if: ${{ contains(steps.changed.outputs.changed_files, 'lunes.txt') }}
         run: |
           LUNES_FILE="lunes.txt"
@@ -79,8 +79,8 @@ jobs:
           [ -f "$LUNES_FILE" ] && cat "$LUNES_FILE" > /tmp/lunes.tmp || echo "" > /tmp/lunes.tmp
           [ -f "$NIC_FILE" ] && cat "$NIC_FILE" > /tmp/nic.tmp || echo "" > /tmp/nic.tmp
 
-          cat /tmp/lunes.tmp /tmp/nic.tmp > ytd_repo/stations.txt
-          cd ytd_repo
+          cat /tmp/lunes.tmp /tmp/nic.tmp > youtubedownlaoder_repo/stations.txt
+          cd youtubedownlaoder_repo
           git add stations.txt
           if git diff --cached --quiet; then
             echo "No changes to stations.txt"
@@ -90,7 +90,7 @@ jobs:
           fi
           cd ..
 
-      - name: If niclai-station.txt changed → update ytd/stations.txt
+      - name: If niclai-station.txt changed → update youtubedownlaoder/stations.txt
         if: ${{ contains(steps.changed.outputs.changed_files, 'niclai-station.txt') }}
         run: |
           LUNES_FILE="lunes.txt"
@@ -99,8 +99,8 @@ jobs:
           [ -f "$LUNES_FILE" ] && cat "$LUNES_FILE" > /tmp/lunes.tmp || echo "" > /tmp/lunes.tmp
           [ -f "$NIC_FILE" ] && cat "$NIC_FILE" > /tmp/nic.tmp || echo "" > /tmp/nic.tmp
 
-          cat /tmp/lunes.tmp /tmp/nic.tmp > ytd_repo/stations.txt
-          cd ytd_repo
+          cat /tmp/lunes.tmp /tmp/nic.tmp > youtubedownlaoder_repo/stations.txt
+          cd youtubedownlaoder_repo
           git add stations.txt
           if git diff --cached --quiet; then
             echo "No changes to stations.txt"
@@ -110,15 +110,15 @@ jobs:
           fi
           cd ..
 
-      - name: If cookies.txt changed → sync to ytd
+      - name: If cookies.txt changed → sync to youtubedownlaoder
         if: ${{ contains(steps.changed.outputs.changed_files, 'cookies.txt') }}
         run: |
           if [ ! -f cookies.txt ]; then
             echo "cookies.txt not found; skip."
             exit 0
           fi
-          cp cookies.txt ytd_repo/cookies.txt
-          cd ytd_repo
+          cp cookies.txt youtubedownlaoder_repo/cookies.txt
+          cd youtubedownlaoder_repo
           git add cookies.txt
           if git diff --cached --quiet; then
             echo "No changes to cookies.txt"
