@@ -57,7 +57,6 @@ jobs:
           fi
 
           cat lunes.txt > combined_stations.txt
-          echo "" >> combined_stations.txt
           cat niclai-station.txt >> combined_stations.txt
 
       - name: Configure Git identity for youtubedownloader commits
