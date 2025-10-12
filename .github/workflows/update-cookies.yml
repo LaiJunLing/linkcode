@@ -1,0 +1,36 @@
+name: Update cookies in youtubedownloader when cookies.txt changes
+
+on:
+  push:
+    paths:
+      - 'cookies.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  update-cookies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout linkcode repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Clone target repo and copy cookies
+        env:
+          PAT: ${{ secrets.LAIJUNLING_PAT }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "actions@github.com"
+          rm -rf youtubedownloader || true
+          git clone https://x-access-token:${PAT}@github.com/laijunling/youtubedownloader.git
+          cd youtubedownloader
+          cp ../cookies.txt cookies.txt
+          git add cookies.txt
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: sync cookies.txt from linkcode"
+          git push origin HEAD
