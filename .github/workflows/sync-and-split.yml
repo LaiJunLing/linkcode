@@ -1,0 +1,128 @@
+name: sync-and-split
+
+on:
+  push:
+    paths:
+      - 'lunes.txt'
+      - 'niclai-station.txt'
+      - 'cookies.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  handle_changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout linkcode
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed files
+        id: changed
+        run: |
+          FILES=""
+          if [ -f "$GITHUB_EVENT_PATH" ]; then
+            FILES="$(jq -r '.head_commit.modified[]? // empty' "$GITHUB_EVENT_PATH" 2>/dev/null || true) $(jq -r '.head_commit.added[]? // empty' "$GITHUB_EVENT_PATH" 2>/dev/null || true) $(jq -r '.head_commit.removed[]? // empty' "$GITHUB_EVENT_PATH" 2>/dev/null || true)"
+          fi
+          if [ -z "$FILES" ]; then
+            FILES="$(git diff --name-only HEAD~1 HEAD || true)"
+          fi
+          echo "changed_files<<EOF" >> $GITHUB_OUTPUT
+          echo "$FILES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Update lunes-v*.txt
+        if: ${{ contains(steps.changed.outputs.changed_files, 'lunes.txt') }}
+        run: |
+          echo "lunes.txt changed → regenerating lunes-vless/vmess/trojan"
+          if [ ! -f lunes.txt ]; then
+            echo "lunes.txt missing; skip."
+            exit 0
+          fi
+          sed -n '1,3p' lunes.txt > lunes-vless.txt || true
+          sed -n '4,6p' lunes.txt > lunes-vmess.txt || true
+          sed -n '7,9p' lunes.txt > lunes-trojan.txt || true
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lunes-vless.txt lunes-vmess.txt lunes-trojan.txt || true
+          if git diff --cached --quiet; then
+            echo "No changes in lunes-v* files."
+          else
+            git commit -m "Auto: update lunes-v* from lunes.txt"
+            git push
+          fi
+
+      - name: Clone youtubedownloader
+        if: ${{ contains(steps.changed.outputs.changed_files, 'lunes.txt') || contains(steps.changed.outputs.changed_files, 'niclai-station.txt') || contains(steps.changed.outputs.changed_files, 'cookies.txt') }}
+        env:
+          REPO_PAT: ${{ secrets.REPO_PAT }}
+        run: |
+          if [ -z "$REPO_PAT" ]; then
+            echo "ERROR: REPO_PAT not set."
+            exit 1
+          fi
+          git clone https://x-access-token:${REPO_PAT}@github.com/laijunling/youtubedownloader.git ytd_repo
+          cd ytd_repo
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cd ..
+
+      - name: If lunes.txt changed → update ytd/stations.txt
+        if: ${{ contains(steps.changed.outputs.changed_files, 'lunes.txt') }}
+        run: |
+          LUNES_FILE="lunes.txt"
+          NIC_FILE="niclai-station.txt"
+
+          [ -f "$LUNES_FILE" ] && cat "$LUNES_FILE" > /tmp/lunes.tmp || echo "" > /tmp/lunes.tmp
+          [ -f "$NIC_FILE" ] && cat "$NIC_FILE" > /tmp/nic.tmp || echo "" > /tmp/nic.tmp
+
+          cat /tmp/lunes.tmp /tmp/nic.tmp > ytd_repo/stations.txt
+          cd ytd_repo
+          git add stations.txt
+          if git diff --cached --quiet; then
+            echo "No changes to stations.txt"
+          else
+            git commit -m "Auto: update stations.txt from linkcode/lunes.txt + niclai-station.txt"
+            git push
+          fi
+          cd ..
+
+      - name: If niclai-station.txt changed → update ytd/stations.txt
+        if: ${{ contains(steps.changed.outputs.changed_files, 'niclai-station.txt') }}
+        run: |
+          LUNES_FILE="lunes.txt"
+          NIC_FILE="niclai-station.txt"
+
+          [ -f "$LUNES_FILE" ] && cat "$LUNES_FILE" > /tmp/lunes.tmp || echo "" > /tmp/lunes.tmp
+          [ -f "$NIC_FILE" ] && cat "$NIC_FILE" > /tmp/nic.tmp || echo "" > /tmp/nic.tmp
+
+          cat /tmp/lunes.tmp /tmp/nic.tmp > ytd_repo/stations.txt
+          cd ytd_repo
+          git add stations.txt
+          if git diff --cached --quiet; then
+            echo "No changes to stations.txt"
+          else
+            git commit -m "Auto: update stations.txt from linkcode/lunes.txt + niclai-station.txt"
+            git push
+          fi
+          cd ..
+
+      - name: If cookies.txt changed → sync to ytd
+        if: ${{ contains(steps.changed.outputs.changed_files, 'cookies.txt') }}
+        run: |
+          if [ ! -f cookies.txt ]; then
+            echo "cookies.txt not found; skip."
+            exit 0
+          fi
+          cp cookies.txt ytd_repo/cookies.txt
+          cd ytd_repo
+          git add cookies.txt
+          if git diff --cached --quiet; then
+            echo "No changes to cookies.txt"
+          else
+            git commit -m "Auto: sync cookies.txt from linkcode"
+            git push
+          fi
