@@ -20,7 +20,6 @@ jobs:
       - name: Prepare combined stations content
         run: |
           cat lunes.txt > combined_stations.txt
-          echo "" >> combined_stations.txt
           cat niclai-station.txt >> combined_stations.txt
 
       - name: Clone target repo (youtubedownloader)
