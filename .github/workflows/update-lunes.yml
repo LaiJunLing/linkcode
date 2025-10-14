@@ -59,7 +59,7 @@ jobs:
           cat lunes.txt > combined_stations.txt
           cat stations.txt >> combined_stations.txt
 
-      - name: Configure Git identity for youtubedownloader commits
+      - name: Configure Git identity for ytd commits
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "actions@github.com"
@@ -71,9 +71,9 @@ jobs:
           #!/bin/bash
           set -e
 
-          rm -rf youtubedownloader || true
-          git clone https://x-access-token:${PAT}@github.com/laijunling/youtubedownloader.git
-          cd youtubedownloader
+          rm -rf ytd || true
+          git clone https://x-access-token:${PAT}@github.com/laijunling/ytd.git
+          cd ytd
           cp ../combined_stations.txt stations.txt
           git add stations.txt
           if git diff --cached --quiet; then
