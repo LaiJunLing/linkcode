@@ -1,4 +1,4 @@
-name: Update stations in ytd when stations.txt changes
+name: Update stations in ytd & iron when stations.txt changes
 
 on:
   push:
@@ -22,20 +22,52 @@ jobs:
           cat lunes.txt > combined_stations.txt
           cat stations.txt >> combined_stations.txt
 
-      - name: Clone target repo (ytd)
+      # ========== 同步到 ytd 仓库 ==========
+      - name: Clone & update ytd repo
         env:
           PAT: ${{ secrets.LAIJUNLING_PAT }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "actions@github.com"
+
           rm -rf ytd || true
           git clone https://x-access-token:${PAT}@github.com/laijunling/ytd.git
           cd ytd
+
           cp ../combined_stations.txt stations.txt
           git add stations.txt
+
           if git diff --cached --quiet; then
-            echo "No changes to commit"
-            exit 0
+            echo "No changes to commit for ytd"
+          else
+            git commit -m "chore: update stations.txt from linkcode"
+            git push origin HEAD
           fi
-          git commit -m "chore: update stations.txt from linkcode (stations.txt changed)"
-          git push origin HEAD
+          cd ..
+
+      # ========== 同步到 iron 仓库 ==========
+      - name: Clone & update iron repo
+        env:
+          PAT: ${{ secrets.LAIJUNLING_PAT }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "actions@github.com"
+
+          rm -rf iron || true
+          git clone https://x-access-token:${PAT}@github.com/laijunling/iron.git
+          cd iron
+
+          # 将 linkcode 仓库中的三个文件复制过去
+          cp ../stations.txt stations.txt
+          cp ../iron.txt iron.txt
+          cp ../lagon.txt lagon.txt
+
+          git add stations.txt iron.txt lagon.txt
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit for iron"
+          else
+            git commit -m "chore: sync stations.txt, iron.txt, lagon.txt from linkcode"
+            git push origin HEAD
+          fi
+          cd ..
