@@ -59,15 +59,15 @@ jobs:
 
           # 将 linkcode 仓库中的三个文件复制过去
           cp ../stations.txt stations.txt
-          cp ../iron.txt iron.txt
-          cp ../lagon.txt lagon.txt
+          cp ../stations.txt iron.txt
+          cp ../stations.txt lagon.txt
 
           git add stations.txt iron.txt lagon.txt
 
           if git diff --cached --quiet; then
             echo "No changes to commit for iron"
           else
-            git commit -m "chore: sync stations.txt, iron.txt, lagon.txt from linkcode"
+            git commit -m "chore: sync stations.txt from linkcode"
             git push origin HEAD
           fi
           cd ..
