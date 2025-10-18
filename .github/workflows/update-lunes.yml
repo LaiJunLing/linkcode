@@ -12,28 +12,28 @@ jobs:
   sync-and-update:
     runs-on: ubuntu-latest
     steps:
+      # 1️⃣ 拉取主仓库
       - name: Checkout linkcode repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Configure Git identity for linkcode commits
+      # 2️⃣ 配置 Git
+      - name: Configure Git identity
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "actions@github.com"
 
+      # 3️⃣ A-lunes.txt → lunes.txt
       - name: Sync lunes.txt with A-lunes.txt
         run: |
           #!/bin/bash
           set -e
-
           if [ ! -f A-lunes.txt ]; then
-            echo "A-lunes.txt not found" >&2
+            echo "❌ A-lunes.txt not found!"
             exit 1
           fi
-
           cp A-lunes.txt lunes.txt
-
           git add lunes.txt
           if git diff --cached --quiet; then
             echo "lunes.txt already up to date"
@@ -42,21 +42,18 @@ jobs:
             git push
           fi
 
+      # 4️⃣ 生成 vless/vmess/trojan 文件
       - name: Create lunes-vless/vmess/trojan from lunes.txt
         run: |
           #!/bin/bash
           set -e
-
           if [ ! -f lunes.txt ]; then
             echo "lunes.txt not found" >&2
             exit 1
           fi
-
-          # 分割 lunes.txt
           sed -n '1,3p' lunes.txt > lunes-vless.txt
           sed -n '4,6p' lunes.txt > lunes-vmess.txt
           sed -n '7,9p' lunes.txt > lunes-trojan.txt
-
           git add lunes-vless.txt lunes-vmess.txt lunes-trojan.txt
           if git diff --cached --quiet; then
             echo "No changes to lunes-xxx files"
@@ -65,39 +62,73 @@ jobs:
             git push
           fi
 
+      # 5️⃣ 构建 combined_stations.txt
       - name: Build combined stations content
         run: |
           #!/bin/bash
           set -e
-
           if [ ! -f stations.txt ]; then
             echo "stations.txt not found" >&2
             exit 1
           fi
-
           cat lunes.txt > combined_stations.txt
           cat stations.txt >> combined_stations.txt
+          echo "✅ combined_stations.txt built."
 
-      - name: Configure Git identity for ytd commits
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "actions@github.com"
-
-      - name: Clone target repo and update stations.txt
+      # 6️⃣ 更新 ytd 仓库
+      - name: Update ytd repo
         env:
           PAT: ${{ secrets.LAIJUNLING_PAT }}
         run: |
           #!/bin/bash
           set -e
-
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "actions@github.com"
           rm -rf ytd || true
           git clone https://x-access-token:${PAT}@github.com/laijunling/ytd.git
           cd ytd
           cp ../combined_stations.txt stations.txt
           git add stations.txt
           if git diff --cached --quiet; then
-            echo "No changes to stations.txt"
-            exit 0
+            echo "✅ No changes for ytd"
+          else
+            git commit -m "chore: update stations.txt from linkcode (A-lunes.txt changed)"
+            git pull --rebase origin HEAD || true
+            git push origin HEAD
           fi
-          git commit -m "chore: update stations.txt from linkcode (A-lunes.txt changed)"
-          git push origin HEAD
+          cd ..
+
+      # 7️⃣ 更新 iron 仓库（包含 sacd2868.txt）
+      - name: Update iron repo
+        env:
+          PAT: ${{ secrets.LAIJUNLING_PAT }}
+        run: |
+          #!/bin/bash
+          set -e
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "actions@github.com"
+          rm -rf iron || true
+          git clone https://x-access-token:${PAT}@github.com/laijunling/iron.git
+          cd iron
+
+          echo "🪶 Updating iron repo with combined_stations.txt..."
+
+          # 拷贝 combined_stations.txt
+          cp ../combined_stations.txt stations.txt
+          cp ../combined_stations.txt iron.txt
+          cp ../combined_stations.txt lagon.txt
+
+          # sacd2868.txt = linkcode/stations.txt 的最后一行
+          last_line=$(tail -n 1 ../stations.txt)
+          echo "$last_line" > sacd2868.txt
+          echo "✅ sacd2868.txt updated with last line: $last_line"
+
+          git add stations.txt iron.txt lagon.txt sacd2868.txt
+          if git diff --cached --quiet; then
+            echo "✅ No changes for iron"
+          else
+            git commit -m "chore: sync combined_stations & sacd2868.txt from linkcode (A-lunes.txt changed)"
+            git pull --rebase origin HEAD || true
+            git push origin HEAD
+          fi
+          cd ..
