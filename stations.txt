@@ -12,4 +12,4 @@ vless://226279dd-28b2-4b61-96be-a2a0b1afd522@www.visa.com.tw:8443?path=%2F%3Fed%
 vless://226279dd-28b2-4b61-96be-a2a0b1afd522@www.visa.com:8443?path=%2F%3Fed%3D2560&security=tls&encryption=none&host=jp.zhaoqing.city&fp=random&type=ws&sni=jp.zhaoqing.city#%E6%97%A5%E6%9C%AC%E8%8A%82%E7%82%B9
 vless://226279dd-28b2-4b61-96be-a2a0b1afd522@www.visa.com.sg:8443?path=%2F%3Fed%3D2560&security=tls&encryption=none&host=sg.zhaoqing.city&fp=random&type=ws&sni=sg.zhaoqing.city#%E7%8B%AE%E5%9F%8E%E8%8A%82%E7%82%B9
 vless://226279dd-28b2-4b61-96be-a2a0b1afd522@usa.visa.com:8443?path=%2F%3Fed%3D2560&security=tls&encryption=none&host=us.zhaoqing.city&fp=random&type=ws&sni=us.zhaoqing.city#%E7%BE%8E%E5%9B%BD%E8%8A%82%E7%82%B9
-121212
+3323734
