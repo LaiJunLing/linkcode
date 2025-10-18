@@ -24,6 +24,24 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "actions@github.com"
 
+      # 3️⃣ Sync lunes.txt -> A-lunes.txt
+      - name: Sync A-lunes.txt with lunes.txt
+        run: |
+          #!/bin/bash
+          set -e
+          if [ ! -f lunes.txt ]; then
+            echo "❌ lunes.txt not found!"
+            exit 1
+          fi
+          cp lunes.txt A-lunes.txt
+          git add A-lunes.txt
+          if git diff --cached --quiet; then
+            echo "A-lunes.txt already up to date"
+          else
+            git commit -m "chore: sync A-lunes.txt with lunes.txt"
+            git push
+          fi
+
       # 3️⃣ Generate lunes-vless/vmess/trojan files
       - name: Create lunes-vless/vmess/trojan from lunes.txt
         run: |
