@@ -70,6 +70,7 @@ jobs:
             echo "✅ No changes for ytd"
           else
             git commit -m "chore: update stations.txt from linkcode (A-stations.txt changed)"
+            git pull --rebase origin HEAD || true
             git push origin HEAD
           fi
           cd ..
@@ -100,12 +101,13 @@ jobs:
           echo "$last_line" > sacd2868.txt
           echo "✅ sacd2868.txt updated with last line: $last_line"
 
-          # 提交更新
+          # 提交更新（带自动 rebase 防冲突）
           git add stations.txt iron.txt lagon.txt sacd2868.txt
           if git diff --cached --quiet; then
             echo "✅ No changes for iron"
           else
             git commit -m "chore: sync stations.txt & sacd2868.txt from linkcode (A-stations.txt changed)"
+            git pull --rebase origin HEAD || true
             git push origin HEAD
           fi
           cd ..
