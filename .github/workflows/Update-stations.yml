@@ -24,6 +24,18 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "actions@github.com"
 
+      # 3️⃣ Sync stations.txt -> A-stations.txt
+      - name: Sync A-stations.txt with stations.txt
+        run: |
+          #!/bin/bash
+          set -e
+          if [ ! -f stations.txt ]; then
+            echo "❌ stations.txt not found!"
+            exit 1
+          fi
+          cp stations.txt A-stations.txt
+          echo "✅ Copied stations.txt → A-stations.txt"
+
       # 3️⃣ Build combined_stations.txt (lunes + stations)
       - name: Build combined_stations.txt
         run: |
