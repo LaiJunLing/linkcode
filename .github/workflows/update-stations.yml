@@ -111,3 +111,39 @@ jobs:
             git push origin HEAD
           fi
           cd ..
+	  # 6️⃣ 同步到 team 仓库，并更新 sacd2868.txt
+      - name: Update stations & sacd2868.txt in team repo
+        env:
+          PAT: ${{ secrets.LAIJUNLING_PAT }}
+        run: |
+          #!/bin/bash
+          set -e
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "actions@github.com"
+
+          rm -rf team || true
+          git clone https://x-access-token:${PAT}@github.com/laijunling/team.git
+          cd team
+
+          echo "🪶 Updating team repo with combined_stations.txt..."
+
+          # 拷贝最新 stations.txt
+          cp ../combined_stations.txt stations.txt
+          cp ../combined_stations.txt iron.txt
+          cp ../combined_stations.txt lagon.txt
+
+          # 从 combined_stations.txt 取出最后一行 -> 更新 sacd2868.txt
+          last_line=$(tail -n 1 ../combined_stations.txt)
+          echo "$last_line" > sacd2868.txt
+          echo "✅ sacd2868.txt updated with last line: $last_line"
+
+          # 提交更新（带自动 rebase 防冲突）
+          git add stations.txt iron.txt lagon.txt sacd2868.txt
+          if git diff --cached --quiet; then
+            echo "✅ No changes for iron"
+          else
+            git commit -m "chore: sync stations.txt & sacd2868.txt from linkcode (A-stations.txt changed)"
+            git pull --rebase origin HEAD || true
+            git push origin HEAD
+          fi
+          cd ..
