@@ -64,11 +64,12 @@ jobs:
           cd ytd
 
           cp ../combined_stations.txt stations.txt
-          git add stations.txt
+          cp ../combined_stations.txt nodes.txt
+          git add stations.txt nodes.txt
           if git diff --cached --quiet; then
             echo "✅ No changes for ytd"
           else
-            git commit -m "chore: update stations.txt from linkcode (A-stations.txt changed)"
+            git commit -m "chore: update stations.txt nodes.txt from linkcode (A-stations.txt changed)"
             git pull --rebase origin HEAD || true
             git push origin HEAD
           fi
