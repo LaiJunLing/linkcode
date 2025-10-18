@@ -118,8 +118,8 @@ jobs:
           cp ../combined_stations.txt iron.txt
           cp ../combined_stations.txt lagon.txt
 
-          # sacd2868.txt = linkcode/stations.txt 的最后一行
-          last_line=$(tail -n 1 ../stations.txt)
+          # sacd2868.txt = combined_stations.txt 的最后一行
+          last_line=$(tail -n 1 ../combined_stations.txt)
           echo "$last_line" > sacd2868.txt
           echo "✅ sacd2868.txt updated with last line: $last_line"
 
