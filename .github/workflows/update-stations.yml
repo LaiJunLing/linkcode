@@ -17,6 +17,26 @@ jobs:
         with:
           fetch-depth: 0
 
+		- name: Sync stations.txt with A-stations.txt
+        run: |
+          #!/bin/bash
+          set -e
+
+          if [ ! -f A-stations.txt ]; then
+            echo "A-stations.txt not found" >&2
+            exit 1
+          fi
+
+          cp A-stations.txt stations.txt
+
+          git add stations.txt
+          if git diff --cached --quiet; then
+            echo "stations.txt already up to date"
+          else
+            git commit -m "chore: sync stations.txt with A-stations.txt"
+            git push
+          fi
+		  
       - name: Prepare combined stations content
         run: |
           cat lunes.txt > combined_stations.txt
