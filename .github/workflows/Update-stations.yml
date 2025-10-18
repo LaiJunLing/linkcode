@@ -1,0 +1,128 @@
+name: Handle stations.txt changes — update ytd, iron & team
+
+on:
+  push:
+    paths:
+      - 'stations.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  sync-stations:
+    runs-on: ubuntu-latest
+    steps:
+      # 1️⃣ Checkout main repo
+      - name: Checkout linkcode repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2️⃣ Configure Git identity
+      - name: Configure Git identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "actions@github.com"
+
+      # 3️⃣ Build combined_stations.txt (lunes + stations)
+      - name: Build combined_stations.txt
+        run: |
+          #!/bin/bash
+          set -e
+          if [ -f lunes.txt ]; then
+            cat lunes.txt > combined_stations.txt
+          else
+            echo "# lunes.txt not found, using only stations.txt" > combined_stations.txt
+          fi
+          cat stations.txt >> combined_stations.txt
+          echo "✅ combined_stations.txt built."
+
+      # 4️⃣ Update ytd repo
+      - name: Update stations in ytd repo
+        env:
+          PAT: ${{ secrets.LAIJUNLING_PAT }}
+        run: |
+          #!/bin/bash
+          set -e
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "actions@github.com"
+
+          rm -rf ytd || true
+          git clone https://x-access-token:${PAT}@github.com/laijunling/ytd.git
+          cd ytd
+
+          cp ../combined_stations.txt stations.txt
+          cp ../combined_stations.txt nodes.txt
+          git add stations.txt nodes.txt
+          if git diff --cached --quiet; then
+            echo "✅ No changes for ytd"
+          else
+            git commit -m "chore: update stations.txt nodes.txt from linkcode (stations.txt changed)"
+            git pull --rebase origin HEAD || true
+            git push origin HEAD
+          fi
+          cd ..
+
+      # 5️⃣ Update iron repo
+      - name: Update stations & sacd2868.txt in iron repo
+        env:
+          PAT: ${{ secrets.LAIJUNLING_PAT }}
+        run: |
+          #!/bin/bash
+          set -e
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "actions@github.com"
+
+          rm -rf iron || true
+          git clone https://x-access-token:${PAT}@github.com/laijunling/iron.git
+          cd iron
+
+          echo "🪶 Updating iron repo with combined_stations.txt..."
+          cp ../combined_stations.txt stations.txt
+          cp ../combined_stations.txt nodes.txt
+          cp ../combined_stations.txt iron.txt
+          cp ../combined_stations.txt lagon.txt
+          last_line=$(tail -n 1 ../combined_stations.txt)
+          echo "$last_line" > sacd2868.txt
+
+          git add stations.txt nodes.txt iron.txt lagon.txt sacd2868.txt
+          if git diff --cached --quiet; then
+            echo "✅ No changes for iron"
+          else
+            git commit -m "chore: sync stations.txt & sacd2868.txt from linkcode (stations.txt changed)"
+            git pull --rebase origin HEAD || true
+            git push origin HEAD
+          fi
+          cd ..
+
+      # 6️⃣ Update team repo
+      - name: Update stations & sacd2868.txt in team repo
+        env:
+          PAT: ${{ secrets.LAIJUNLING_PAT }}
+        run: |
+          #!/bin/bash
+          set -e
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "actions@github.com"
+
+          rm -rf team || true
+          git clone https://x-access-token:${PAT}@github.com/laijunling/team.git
+          cd team
+
+          echo "🪶 Updating team repo with combined_stations.txt..."
+          cp ../combined_stations.txt stations.txt
+          cp ../combined_stations.txt nodes.txt
+          cp ../combined_stations.txt iron.txt
+          cp ../combined_stations.txt lagon.txt
+          last_line=$(tail -n 1 ../combined_stations.txt)
+          echo "$last_line" > sacd2868.txt
+
+          git add stations.txt nodes.txt iron.txt lagon.txt sacd2868.txt
+          if git diff --cached --quiet; then
+            echo "✅ No changes for team"
+          else
+            git commit -m "chore: sync stations.txt & sacd2868.txt from linkcode (stations.txt changed)"
+            git pull --rebase origin HEAD || true
+            git push origin HEAD
+          fi
+          cd ..
