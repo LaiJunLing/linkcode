@@ -92,9 +92,9 @@ jobs:
           echo "🪶 Updating iron repo with stations.txt..."
 
           # 拷贝最新 stations.txt
-          cp ../stations.txt stations.txt
-          cp ../stations.txt iron.txt
-          cp ../stations.txt lagon.txt
+          cp ../combined_stations.txt stations.txt
+          cp ../combined_stations.txt iron.txt
+          cp ../combined_stations.txt lagon.txt
 
           # 从 stations.txt 取出最后一行 -> 更新 sacd2868.txt
           last_line=$(tail -n 1 ../stations.txt)
