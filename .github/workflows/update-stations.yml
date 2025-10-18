@@ -96,7 +96,7 @@ jobs:
           cp ../combined_stations.txt iron.txt
           cp ../combined_stations.txt lagon.txt
 
-          # 从 stations.txt 取出最后一行 -> 更新 sacd2868.txt
+          # 从 combined_stations.txt 取出最后一行 -> 更新 sacd2868.txt
           last_line=$(tail -n 1 ../combined_stations.txt)
           echo "$last_line" > sacd2868.txt
           echo "✅ sacd2868.txt updated with last line: $last_line"
