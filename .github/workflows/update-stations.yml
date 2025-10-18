@@ -1,4 +1,4 @@
-name: Sync stations to ytd & iron when A-stations.txt changes
+name: Sync stations to ytd, iron & team when A-stations.txt changes
 
 on:
   push:
@@ -12,33 +12,31 @@ jobs:
   sync-stations:
     runs-on: ubuntu-latest
     steps:
-      # 1️⃣ 拉取主仓库
+      # 1️⃣ Checkout main repo
       - name: Checkout linkcode repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # 2️⃣ 设置 Git 用户信息
+      # 2️⃣ Configure Git identity
       - name: Configure Git identity
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "actions@github.com"
 
-      # 3️⃣ 将 A-stations.txt 同步为 stations.txt
+      # 3️⃣ Sync A-stations.txt -> stations.txt
       - name: Sync stations.txt with A-stations.txt
         run: |
           #!/bin/bash
           set -e
-
           if [ ! -f A-stations.txt ]; then
             echo "❌ A-stations.txt not found!"
             exit 1
           fi
-
           cp A-stations.txt stations.txt
           echo "✅ Copied A-stations.txt → stations.txt"
 
-      # 4️⃣ 构建 combined_stations.txt（lunes + stations）
+      # 4️⃣ Build combined_stations.txt (lunes + stations)
       - name: Build combined_stations.txt
         run: |
           #!/bin/bash
@@ -49,8 +47,9 @@ jobs:
             echo "# lunes.txt not found, using only stations.txt" > combined_stations.txt
           fi
           cat stations.txt >> combined_stations.txt
+          echo "✅ combined_stations.txt built."
 
-      # 5️⃣ 同步到 ytd 仓库
+      # 5️⃣ Update ytd repo
       - name: Update stations in ytd repo
         env:
           PAT: ${{ secrets.LAIJUNLING_PAT }}
@@ -75,7 +74,7 @@ jobs:
           fi
           cd ..
 
-      # 6️⃣ 同步到 iron 仓库，并更新 sacd2868.txt
+      # 6️⃣ Update iron repo
       - name: Update stations & sacd2868.txt in iron repo
         env:
           PAT: ${{ secrets.LAIJUNLING_PAT }}
@@ -89,19 +88,13 @@ jobs:
           git clone https://x-access-token:${PAT}@github.com/laijunling/iron.git
           cd iron
 
-          echo "🪶 Updating iron repo with stations.txt..."
-
-          # 拷贝最新 stations.txt
+          echo "🪶 Updating iron repo with combined_stations.txt..."
           cp ../combined_stations.txt stations.txt
           cp ../combined_stations.txt iron.txt
           cp ../combined_stations.txt lagon.txt
-
-          # 从 combined_stations.txt 取出最后一行 -> 更新 sacd2868.txt
           last_line=$(tail -n 1 ../combined_stations.txt)
           echo "$last_line" > sacd2868.txt
-          echo "✅ sacd2868.txt updated with last line: $last_line"
 
-          # 提交更新（带自动 rebase 防冲突）
           git add stations.txt iron.txt lagon.txt sacd2868.txt
           if git diff --cached --quiet; then
             echo "✅ No changes for iron"
@@ -111,7 +104,8 @@ jobs:
             git push origin HEAD
           fi
           cd ..
-	  # 6️⃣ 同步到 team 仓库，并更新 sacd2868.txt
+
+      # 7️⃣ Update team repo
       - name: Update stations & sacd2868.txt in team repo
         env:
           PAT: ${{ secrets.LAIJUNLING_PAT }}
@@ -126,21 +120,15 @@ jobs:
           cd team
 
           echo "🪶 Updating team repo with combined_stations.txt..."
-
-          # 拷贝最新 stations.txt
           cp ../combined_stations.txt stations.txt
           cp ../combined_stations.txt iron.txt
           cp ../combined_stations.txt lagon.txt
-
-          # 从 combined_stations.txt 取出最后一行 -> 更新 sacd2868.txt
           last_line=$(tail -n 1 ../combined_stations.txt)
           echo "$last_line" > sacd2868.txt
-          echo "✅ sacd2868.txt updated with last line: $last_line"
 
-          # 提交更新（带自动 rebase 防冲突）
           git add stations.txt iron.txt lagon.txt sacd2868.txt
           if git diff --cached --quiet; then
-            echo "✅ No changes for iron"
+            echo "✅ No changes for team"
           else
             git commit -m "chore: sync stations.txt & sacd2868.txt from linkcode (A-stations.txt changed)"
             git pull --rebase origin HEAD || true
