@@ -90,12 +90,13 @@ jobs:
 
           echo "🪶 Updating iron repo with combined_stations.txt..."
           cp ../combined_stations.txt stations.txt
+          cp ../combined_stations.txt nodes.txt
           cp ../combined_stations.txt iron.txt
           cp ../combined_stations.txt lagon.txt
           last_line=$(tail -n 1 ../combined_stations.txt)
           echo "$last_line" > sacd2868.txt
 
-          git add stations.txt iron.txt lagon.txt sacd2868.txt
+          git add stations.txt nodes.txt iron.txt lagon.txt sacd2868.txt
           if git diff --cached --quiet; then
             echo "✅ No changes for iron"
           else
@@ -121,12 +122,13 @@ jobs:
 
           echo "🪶 Updating team repo with combined_stations.txt..."
           cp ../combined_stations.txt stations.txt
+          cp ../combined_stations.txt nodes.txt
           cp ../combined_stations.txt iron.txt
           cp ../combined_stations.txt lagon.txt
           last_line=$(tail -n 1 ../combined_stations.txt)
           echo "$last_line" > sacd2868.txt
 
-          git add stations.txt iron.txt lagon.txt sacd2868.txt
+          git add stations.txt nodes.txt iron.txt lagon.txt sacd2868.txt
           if git diff --cached --quiet; then
             echo "✅ No changes for team"
           else
